@@ -2,41 +2,43 @@ const displayWidth = window.innerWidth - 500;
 const displayHeight = 450;
 const dataSetSize = 250;
 const options = {
-  rootNode: '#knn',
+  rootNode: "#knn",
   width: displayWidth,
   height: displayHeight,
-  backgroundColor: 'black',
-  circleFill: '#3fe4h2',
-  circleStroke: 'white'
+  backgroundColor: "black",
+  circleFill: "#3fe4h2",
+  circleStroke: "white",
 };
-var types = ['A', 'B'];
+var types = ["A", "B"];
 
 function rand(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 function randCoord(width, height, cx, cy) {
-  const rho = Math.sqrt(Math.random())
-  const phi = Math.random() * Math.PI * 2
-  const rands = { x: rand(-width / 2, width / 2), //random x coordinate
-                  y: rand(-height / 2, height / 2) } // random y coordinate
-  const x = (rho * Math.cos(phi) * width / 2) + cx + rands.x
-  const y = (rho * Math.sin(phi) * height / 2) + cy + rands.y
-  return { x, y }
+  const rho = Math.sqrt(Math.random());
+  const phi = Math.random() * Math.PI * 2;
+  const rands = {
+    x: rand(-width / 2, width / 2), //random x coordinate
+    y: rand(-height / 2, height / 2),
+  }; // random y coordinate
+  const x = (rho * Math.cos(phi) * width) / 2 + cx + rands.x;
+  const y = (rho * Math.sin(phi) * height) / 2 + cy + rands.y;
+  return { x, y };
 }
 function gen() {
   const typeOptions = {
-    'A': {
+    A: {
       width: displayWidth / 3,
       height: displayWidth / 3,
       cx: displayWidth / 3,
-      cy: displayHeight / 3
+      cy: displayHeight / 3,
     },
-    'B': {
+    B: {
       width: displayWidth / 2.5,
       height: displayWidth / 2.5,
       cx: displayWidth * 0.663,
-      cy: displayHeight * 0.66
-    }
+      cy: displayHeight * 0.66,
+    },
   };
 
   const generatedData = [];
@@ -50,34 +52,35 @@ function gen() {
   return generatedData;
 }
 
-var button = document.getElementById('btn');
-button.addEventListener('click', hideshow);
+var button = document.getElementById("btn");
+button.addEventListener("click", hideshow);
 
-var input = document.getElementById('upload');
-input.addEventListener('change', updateImageDisplay);
+var input = document.getElementById("upload");
+input.addEventListener("change", updateImageDisplay);
 
 function hideshow() {
   const data = gen();
   const k = 3;
-  const vis = new d3ml.KNNVisualization(data,
-    options,
-    types,
-    k);
+  const vis = new d3ml.KNNVisualization(data, options, types, k);
   vis.draw();
-  button.style.display = 'none';
-  document.getElementById('frm').style.display = 'none';
+  button.style.display = "none";
+  document.getElementById("frm").style.display = "none";
 }
 
 function updateImageDisplay() {
   const file = input.files[0];
   var reader = new FileReader();
-  reader.addEventListener('load', function() {
+  reader.addEventListener("load", function () {
     var result = JSON.parse(reader.result); // Parse the result into an object
     const k = 3;
     var tps = [];
     var flag = 0;
     for (item of result) {
-      if (!Object.hasOwn(item, 'x') || !Object.hasOwn(item, 'y') || !Object.hasOwn(item, 'type')) {
+      if (
+        !Object.hasOwn(item, "x") ||
+        !Object.hasOwn(item, "y") ||
+        !Object.hasOwn(item, "type")
+      ) {
         var p = document.getElementById("frm");
         p.appendChild(document.createTextNode("Incorrect file"));
         return;
@@ -93,13 +96,11 @@ function updateImageDisplay() {
         flag = 0;
       }
     }
-    const vis = new d3ml.KNNVisualization(result,
-      options,
-      tps,
-      k);
+    const vis = new d3ml.KNNVisualization(result, options, tps, k);
     vis.draw();
   });
   reader.readAsText(input.files[0]);
-  button.style.display = 'none';
-  document.getElementById('frm').style.display = 'none';
+  button.style.display = "none";
+  document.getElementById("frm").style.display = "none";
 }
+
