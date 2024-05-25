@@ -1,0 +1,27 @@
+<script src="https://rawgit.com/StefanieStoppel/d3ML/master/lib/d3ml.min.js"></script>
+
+<head class="center">
+  K-Nearest Neighbor (KNN)
+  <link rel="stylesheet" href="style.css" />
+</head>
+<p class="center">
+  <strong>Визуализация алгоритма машинного обучения KNN.</strong>
+</p>
+<p class="center">
+  Нажмите на серую область, чтобы создать новый объект и увидеть, как
+  определяется его цвет в зависимости от соседей.
+</p>
+<div id="knn"></div>
+
+<div>
+  <button id="btn">Рандомизировать</button>
+</div>
+<br />
+<form method="post" id="frm" enctype="multipart/form-data">
+  <div>
+    <label for="upload">Выберите файл с данными (JSON)</label>
+    <input type="file" id="upload" name="upload" accept=".json" />
+  </div>
+</form>
+
+<script src="app.js"></script>
