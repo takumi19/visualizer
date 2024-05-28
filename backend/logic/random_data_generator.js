@@ -45,9 +45,7 @@ function gen() {
 }
 
 const generateData = (req, res) => {
-  console.log("Data is being generated...");
   const data = gen();
-  console.log("Data has been generated");
   res.json(data);
 };
 
