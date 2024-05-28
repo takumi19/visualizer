@@ -13,17 +13,14 @@ var types = ["A", "B"];
 
 const hideshow = async () => {
   try {
-    // console.log("hideshow entered");
     const response = await fetch("http://localhost:3001/api/randomdata", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-      // body: ,
       mode: "cors",
     });
     const data = await response.json();
-    // console.log(data);
     const k = 3;
     const vis = new d3ml.KNNVisualization(data, options, types, k);
     vis.draw();
@@ -35,10 +32,10 @@ const hideshow = async () => {
 };
 
 function updateImageDisplay() {
-  // const file = input.files[0];
+  console.log("updateImageDisplay");
   var reader = new FileReader();
   reader.addEventListener("load", function () {
-    var result = JSON.parse(reader.result); // Parse the result into an object
+    var result = JSON.parse(reader.result);
     const k = 3;
     var tps = [];
     var flag = 0;
@@ -76,26 +73,3 @@ button.addEventListener("click", hideshow);
 
 var input = document.getElementById("upload");
 input.addEventListener("change", updateImageDisplay);
-
-//
-// try {
-//   console.log(JSON.stringify({ workoutData }));
-//   const response = await fetch("http://localhost:3001/api/workouts/instance", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(workoutData),
-//     mode: "cors",
-//   });
-//
-//   if (response.ok) {
-//     alert("Workout saved successfully");
-//     onBack();
-//   } else {
-//     alert("FAiled to save workout");
-//   }
-// } catch (error) {
-//   console.error("Failed to save workout", error);
-//   alert("Failed to save workouT");
-// }
